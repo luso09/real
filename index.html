@@ -1,1 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <title>Kakao 공유 테스트</title>
+  <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+  <script>
+    // ✅ 0. URL 파라미터 확인 후 자동 리다이렉트
+    const params = new URLSearchParams(window.location.search);
+    const redirectUrl = params.get('url');
+    if (redirectUrl) {
+      // 카카오 공유를 실행하지 않고 바로 이동해야 하는 경우
+      if (!window.location.href.includes('kakaoShare')) {
+        window.location.href = redirectUrl;
+      }
+    }
 
+    // ✅ 1. Kakao SDK 초기화
+    Kakao.init('a617e64c996d7ce4870d5102a200c807');
+
+    // ✅ 2. 공유 함수 정의
+    function sendLink() {
+      Kakao.Link.sendDefault({
+        objectType: 'feed',
+        content: {
+          title: '빨간모자 산타 생크림 케이크',
+          description: 'Tous les Jours',
+          imageUrl: 'https://image.homeplus.kr/td/ba607e1b-1b92-4531-bdbc-cbeb1ba6c1a4',
+          link: {
+            mobileWebUrl: 'https://lis433.github.io/?url=https://zrr.kr/ndriRD',
+            webUrl: 'https://lis433.github.io/?url=https://zrr.kr/ndriRD',
+          },
+        },
+        buttons: [
+          {
+            title: '선물 받기',
+            link: {
+              mobileWebUrl: 'https://lis433.github.io/?url=https://zrr.kr/ndriRD',
+              webUrl: 'https://lis433.github.io/?url=https://zrr.kr/ndriRD',
+            },
+          },
+        ],
+      });
+    }
+  </script>
+</head>
+<body>
+  <button onclick="sendLink()">카카오톡으로 공유</button>
+</body>
+</html>
